@@ -1,3 +1,5 @@
+﻿using Serilog;
+
 namespace _23WebC_Nhom10
 {
     public class Program
@@ -5,8 +7,14 @@ namespace _23WebC_Nhom10
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            /*
+            Tên: Phạm Quốc Khánh
+            Date:18-09-2025
+             */
+            Log.Logger = new LoggerConfiguration()
+              .WriteTo.File("requsest.log") // Ghi log ra file request.log
+              .CreateLogger();
 
-            
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
@@ -23,8 +31,8 @@ namespace _23WebC_Nhom10
             app.UseRouting();
 
             app.UseAuthorization();
-
             app.MapStaticAssets();
+            app.UseMiddleware<Middleware.Request_Log_Middleware>();
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
