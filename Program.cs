@@ -38,6 +38,7 @@ namespace _23WebC_Nhom10
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
+            app.MapFallbackToController("NotFound", "Home");
             app.Run();
         }
     }
