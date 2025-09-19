@@ -1,26 +1,44 @@
-﻿@{
+﻿@model List<UserModel> // Sử dụng List<UserModel>
+
+@{
     ViewData["title"] = "Home";
 }
-@model List<UserModel>
 
-<h2 class="text-center">Danh sách Users</h2>
+    <h2 class="text-center">Danh sách Users</h2>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Username</th>
-            <th>Password</th>
-            <th>Role</th>
-        </tr>
-    </thead>
-    <tbody>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
         @foreach (var u in Model)
         {
-            <tr>
-                <td>@u.Username</td>
-                <td>@u.Password</td>
-                <td>@u.Role</td>
-            </tr>
+                <tr>
+                    <td>@u.Username</td>
+                    <td>@u.Password</td>
+                    <td>@u.Role</td>
+                </tr>
         }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+        @{
+            var totalItems = ViewBag.TotalItems;
+            var pageSize = ViewBag.PageSize;
+            var currentPage = ViewBag.CurrentPage;
+            var totalPages = (int)Math.Ceiling((decimal)totalItems / pageSize);
+
+            for (int i = 1; i <= totalPages; i++)
+            {
+                    <li class="page-item @(i == currentPage ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                    </li>
+            }
+        }
+        </ul>
+    </nav>

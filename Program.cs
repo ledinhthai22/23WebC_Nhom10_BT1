@@ -45,6 +45,11 @@ namespace _23WebC_Nhom10
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
+            /*
+             * Tên: Bùi Huy Khang
+             * Date:18-09-2025
+             * Route NotFound page
+             */
             app.MapFallbackToController("NotFound", "Home");
             app.Run();
         }
