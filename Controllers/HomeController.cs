@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using _23WebC_Nhom10.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace _23WebC_Nhom10.Controllers
@@ -7,15 +8,17 @@ namespace _23WebC_Nhom10.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly UserStore _userStore;
+    
+        public HomeController(ILogger<HomeController> logger, UserStore userStore)
         {
             _logger = logger;
+            _userStore = userStore;
         }
 
         public IActionResult Index()
         {
-            return View();
+            return View(_userStore.Users);
         }
 
         public IActionResult Privacy()

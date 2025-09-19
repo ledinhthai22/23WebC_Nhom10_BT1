@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using _23WebC_Nhom10.Models;
+using Serilog;
 
 namespace _23WebC_Nhom10
 {
@@ -16,7 +17,12 @@ namespace _23WebC_Nhom10
               .CreateLogger();
 
             builder.Services.AddControllersWithViews();
-
+            
+            builder.Services.AddScoped<UserStore>();
+            /*
+             * Tên: Lê Đình Thái
+             * Date:19-8-2025
+             */
             var app = builder.Build();
 
            
@@ -33,6 +39,7 @@ namespace _23WebC_Nhom10
             app.UseAuthorization();
             app.MapStaticAssets();
             app.UseMiddleware<Middleware.Request_Log_Middleware>();
+            app.UseMiddleware<Middleware.User_Load_Middleware>();
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
