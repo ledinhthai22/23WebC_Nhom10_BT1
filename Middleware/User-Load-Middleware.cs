@@ -32,7 +32,11 @@ namespace _23WebC_Nhom10.Middleware
             }
             var userStore = context.RequestServices.GetRequiredService<UserStore>();
             userStore.Users = Users;
-
+            /*
+             * Tên: Lê Đình Thái 
+             * Date:19/9/2025
+             * Middleware readfile -> load list user
+             */
             await _next(context);
         }
     }

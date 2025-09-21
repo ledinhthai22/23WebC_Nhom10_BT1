@@ -20,7 +20,7 @@ namespace _23WebC_Nhom10
             
             builder.Services.AddScoped<UserStore>();
             /*
-             * Tên: Lê Đình Thái
+             * Tên: Phạm Khắc Tuyên
              * Date:19-8-2025
              */
             var app = builder.Build();
