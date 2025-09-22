@@ -11,7 +11,7 @@ namespace _23WebC_Nhom10.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly UserStore _userStore;
-    
+
         public HomeController(ILogger<HomeController> logger, UserStore userStore)
         {
             _logger = logger;

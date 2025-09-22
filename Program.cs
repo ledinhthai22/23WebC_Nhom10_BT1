@@ -1,4 +1,5 @@
-﻿using _23WebC_Nhom10.Models;
+﻿using Microsoft.Extensions.Configuration;
+using _23WebC_Nhom10.Models;
 using Serilog;
 
 namespace _23WebC_Nhom10
@@ -17,7 +18,7 @@ namespace _23WebC_Nhom10
               .CreateLogger();
 
             builder.Services.AddControllersWithViews();
-            
+
             builder.Services.AddScoped<UserStore>();
             /*
              * Tên: Phạm Khắc Tuyên
@@ -25,11 +26,11 @@ namespace _23WebC_Nhom10
              */
             var app = builder.Build();
 
-           
+
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                
+
                 app.UseHsts();
             }
 
@@ -51,6 +52,28 @@ namespace _23WebC_Nhom10
              * Route NotFound page
              */
             app.MapFallbackToController("NotFound", "Home");
+            /*
+             * Tên: Hồ Văn Khang nè
+             * Date: 21-09-2025
+             */
+            IConfiguration configuration = new ConfigurationBuilder()//
+            .AddJsonFile("SettingUsers.json", optional: false, reloadOnChange: true)//optional: false = báo lỗi nếu không tìm thấy tên file, reloadOnChange: true = tự động đọc dữ liệu lại khi có thay đổi
+            .Build();
+            string MaxSize = configuration["Max_File_Size"];
+            var Ip_Ban_Array = configuration.GetSection("IP:IP_Ban").Get<string[]>();
+            Console.WriteLine($"Dung lượng tối đa của một file: {MaxSize}");
+            Console.WriteLine("Ip bị chặn nà:");
+            if (Ip_Ban_Array != null)
+            {
+                foreach (var ip in Ip_Ban_Array)
+                {
+                    Console.WriteLine(ip);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Không tìm thấy danh sách IP bị chặn.");
+            }
             app.Run();
         }
     }
